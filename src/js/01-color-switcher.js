@@ -11,7 +11,6 @@ disableBtn(refs.stopBtn);
 
 refs.startBtn.addEventListener('click', onClickStart);
 
-
 function onClickStart(e) {
     enableBtn(refs.stopBtn)
     e.target.disabled = true;
