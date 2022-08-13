@@ -1,5 +1,6 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 let timerId = null;
 let deltaTime = 0;
@@ -26,7 +27,13 @@ const options = {
             enableBtn(refs.startBtn);
             selectedDatesRef = selectedDates[0];
         } else {
-            alert('Please choose a date in the future')
+            Notify.failure('Please choose a date in the future',
+                {
+                    timeout: 3500,
+                    clickToClose: true,
+                    cssAnimationDuration: 400,
+                    cssAnimationStyle: 'from-right',
+                })
         };
 
     },
@@ -41,7 +48,13 @@ refs.startBtn.addEventListener('click', onClickStartBtn);
 function onClickStartBtn() {
     let realTime = new Date();
     if (selectedDatesRef < realTime) {
-        alert('The real time is already greater than the set time')
+        Notify.warning('The real time is already greater than the set time',
+            {
+                timeout: 5500,
+                clickToClose: true,
+                cssAnimationDuration: 400,
+                cssAnimationStyle: 'from-right',
+            })
     }
     timerStart();
     timerId = setInterval(timerStart, 1000);
