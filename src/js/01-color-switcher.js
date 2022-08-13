@@ -16,10 +16,7 @@ function onClickStart(e) {
     e.target.disabled = true;
     refs.stopBtn.addEventListener('click', onClickStop);
     changeBodyColor(getRandomHexColor());
-    timerId = setInterval(() => {
-        color = getRandomHexColor();
-        changeBodyColor(color)
-    }, 1000)
+    timerId = setInterval(() => changeBodyColor(getRandomHexColor()), 1000)
 }
 
 function onClickStop(e) {
