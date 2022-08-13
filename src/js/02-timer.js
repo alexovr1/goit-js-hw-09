@@ -49,7 +49,7 @@ function onClickStartBtn() {
 }
 
 function timerStart() {
-    realTime = new Date();
+    let realTime = new Date();
 
     if (selectedDatesRef < realTime) {
         clearInterval(timerId)
