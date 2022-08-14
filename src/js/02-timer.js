@@ -45,7 +45,9 @@ disableBtn(refs.startBtn);
 
 refs.startBtn.addEventListener('click', onClickStartBtn);
 
-function onClickStartBtn() {
+function onClickStartBtn(e) {
+    refs.inputData.disabled = true;
+    e.target.disabled = true;
     let realTime = new Date();
     if (selectedDatesRef < realTime) {
         Notify.warning('The real time is already greater than the set time',
@@ -90,7 +92,7 @@ function convertMs(ms) {
     const day = hour * 24;
 
     // Remaining days
-    const days = String(Math.floor(ms / day));
+    const days = String(Math.floor(ms / day)).padStart(2, "0");
     // Remaining hours
     const hours = String(Math.floor((ms % day) / hour)).padStart(2, "0");
     // Remaining minutes
@@ -98,16 +100,10 @@ function convertMs(ms) {
     // Remaining seconds
     const seconds = String(Math.floor((((ms % day) % hour) % minute) / second)).padStart(2, "0");
 
-    let formatDays = String(0);
-
-    if (days.length < 2) {
-        formatDays = addLeadingZero(days);
-    } else {
-        formatDays = days;
-    };
-
     convertTime = {
-        days: formatDays,
+        days
+        // : formatDays
+        ,
         hours,
         minutes,
         seconds,
@@ -115,11 +111,6 @@ function convertMs(ms) {
 
     return convertTime;
 }
-
-function addLeadingZero(value) {
-    return value.padStart(2, "0")
-}
-
 
 function render() {
     refs.days.textContent = convertTime.days;
